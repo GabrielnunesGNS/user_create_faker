@@ -21,21 +21,25 @@ const TableUsuarios = ({ dados }) => {
 
     return (
         <>
-            <table className='table table-striped table-bordered'>
+            <table className='table overflow-scroll table-striped table-bordered'>
                 <thead>
                     <tr className='text-uppercase'>
                         <th>#</th>
                         <th>nome</th>
                         <th>email</th>
-                        <th>telefone</th>
-                        <th>pais</th>
+                        <th>idade</th>
+                        <th>cidade</th>
+                        <th>estado</th>
+                        <th>data cadastro</th>
+                        <th>N° compras </th>
+                        <th>Valor total</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {(dados.length == 0) ? (
                         <tr>
-                            <td colSpan='5'>
+                            <td colSpan='8'>
                                 Clique em <span className='fw-bold'>gerar usuários</span>
                             </td>
                         </tr>
@@ -45,8 +49,12 @@ const TableUsuarios = ({ dados }) => {
                                 <td>{user.id}</td>
                                 <td>{user.nome}</td>
                                 <td>{user.email}</td>
-                                <td>{user.telefone}</td>
-                                <td>{user.pais}</td>
+                                <td>{user.idade}</td>
+                                <td>{user.cidade}</td>
+                                <td>{user.estado}</td>
+                                <td>{String(user.dataCadastro)}</td>
+                                <td>{user.numeroCompras}</td>
+                                <td>{user.valorTotal}</td>
                             </tr>
                         ))
                     )}

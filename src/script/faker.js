@@ -5,11 +5,15 @@ import { faker } from '@faker-js/faker';
 
 export function createRandomUser() {
   return {
-    id:faker.string.uuid(),
+    id:faker.number.int({ min: 1, max: 9999999 }),
     nome: faker.internet.username(),
     email:faker.internet.email(),
-    telefone:faker.phone.number({style:'international'}),
-    pais: faker.location.country(),
+    idade:faker.number.int({ min: 1, max: 110 }),
+    cidade:faker.location.country(),
+    estado:faker.location.state(),
+    dataCadastro:faker.date.birthdate({mode:'year',min:1990,max:2026}).toLocaleDateString('pt-BR'),
+    numeroCompras:faker.number.int({min:1,max:1000}),
+    valorTotal:faker.commerce.price({min:10,max:10000})
   };
 }
 

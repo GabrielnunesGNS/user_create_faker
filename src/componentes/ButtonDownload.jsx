@@ -10,7 +10,7 @@ const ButtonDownload = ({ dados }) => {
         }
 
         // Colunas que serão exportadas
-        const cabecalho = ['id', 'nome', 'email', 'telefone', 'pais'];
+        const cabecalho = ['id', 'nome', 'email', 'idade', 'cidade', 'estado','dataCadastro','numeroCompras','valorTotal'];
 
         // Converter os dados em CSV
         const linhas = dados.map(usuario =>
