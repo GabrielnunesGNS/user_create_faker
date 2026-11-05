@@ -6,7 +6,7 @@ import { faker } from '@faker-js/faker';
 export function createRandomUser() {
   return {
     id:faker.number.int({ min: 1, max: 9999999 }),
-    nome: faker.internet.username(),
+    nome: faker.person.fullName(),
     email:faker.internet.email(),
     idade:faker.number.int({ min: 1, max: 110 }),
     cidade:faker.location.country(),
