@@ -1,0 +1,26 @@
+
+html, body, #root {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    min-height: 100dvh;
+}
+
+.container-display {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    width: 100%;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    margin-top: auto;
+}
