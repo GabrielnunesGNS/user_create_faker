@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 
 const TableUsuarios = ({ dados }) => {
-
+    // if(!dados) return
     const [paginaAtual, setPaginaAtual] = useState(1)
 
     const registrosPorPagina = 20
@@ -33,7 +33,7 @@ const TableUsuarios = ({ dados }) => {
                 </thead>
 
                 <tbody>
-                    {dados.length === 0 ? (
+                    {(dados.length == 0) ? (
                         <tr>
                             <td colSpan='5'>
                                 Clique em <span className='fw-bold'>gerar usuários</span>

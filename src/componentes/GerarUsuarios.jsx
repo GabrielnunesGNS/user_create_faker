@@ -1,39 +1,39 @@
-import React from 'react'
 import gerarUsuarios from '../script/faker'
 import ButtonDownload from './ButtonDownload'
 import { useState } from 'react'
-import { de } from '@faker-js/faker'
 const GerarUsuarios = ({setListaUsuarios,usuarios}) => {
     const[qtdUsuarios,setUsuarios] = useState(100)
     const[ignoreLimit,setIgnore] = useState(false)
+    const[mensagemErro,setMensagemError] = useState(false)
+    const[disabled,setDisabled] = useState(false)
+
+    const userMin = 1
+    const userMax = 1000000
 
     function handleCheckBox(value){
-        debugger
         if(!value) return
             setIgnore(true)
     }
 
     function handleGerarLista(){
-        const userMin = 0
-        const userMax = 1000000
-        
-
-        if(qtdUsuarios <= userMin ) return alert(`quantidade deve ser maior que ${userMin}`)
+        if(qtdUsuarios <= userMin ) return alert('insira um valor maior que o valor minimo')
         if(!ignoreLimit){
-            if(qtdUsuarios > userMax) return alert(`quantidade de usuarios não pode ser maior que ${userMax}`)
+            if(qtdUsuarios > userMax) return alert('insira um valor menos que o limite')
         }
         const user = gerarUsuarios(qtdUsuarios)
         setListaUsuarios(user)
-        
     }
+
+    
 
     function handleQtdUsuarios(value){
         let valor  = Number(value)
-        console.log(typeof valor)
-        if(!Number.isFinite(valor) || valor  < 1 ) return setUsuarios(1)
-
-            setUsuarios(valor)
+        if(!Number.isFinite(valor) || valor  < 1 || value == '' ) setUsuarios(0)
+        setUsuarios(valor)
+       
     }
+
+  
 
   return (
     <div className='mt-5 d-flex justify-content-center flex-column align-items-center w-100'>
@@ -41,7 +41,8 @@ const GerarUsuarios = ({setListaUsuarios,usuarios}) => {
         <div className='w-75'>
             <div>
                 <label htmlFor="" className='form-label fw-bold'>Insira a quantidade de registro:</label>
-                <input type="text" className="form-control" placeholder='quantidade de registros' value={qtdUsuarios} onChange={(e)=>{handleQtdUsuarios(e.target.value)}} /></div>
+                <input type="text" className="form-control" placeholder='quantidade de registros' value={qtdUsuarios} onChange={(e)=>{handleQtdUsuarios(e.target.value)}} disabled={disabled} /></div>
+                { mensagemErro ? (<p className='small text-danger'>Insira limites válidos...</p>):''}
                 <div className='mt-2 w-100 d-flex gap-1 justify-items-start'>
                     <input type="checkbox" className='form-check' name="ignoreLimit" onChange={(e)=>{handleCheckBox(e.target.checked) }} id="igonoreLimit" />
                     <label className='form-check-label' htmlFor="ignoreLimit">ignorar limites</label>
