@@ -12,7 +12,7 @@ function App() {
     
       <div className='position-relative container-display'>
         <header className='p-3 shadow bg-light text-center position-relative'>
-            <h3>Gerador de <span className='text-uppercase text-warning fw-bold'>faker js</span></h3>
+            <h3>Gerador<span className='text-uppercase text-warning fw-bold'>faker js</span></h3>
             
 
         </header>
