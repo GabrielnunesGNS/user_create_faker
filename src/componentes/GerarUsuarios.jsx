@@ -37,8 +37,8 @@ const GerarUsuarios = ({setListaUsuarios,usuarios}) => {
 
   return (
     <div className='mt-5 d-flex justify-content-center flex-column align-items-center w-100'>
-        <p className='px-5'>Crie registros fictícios de 1 a 1 milhão usuários (caso deseje criar quantidades maiores click em <span className='fw-bold'>ignorar limite</span> , assim podendo criar a quantidades ilimitadas ou até sua máquina travar ) </p>
-        <div className='w-75'>
+        <p className='px-lg-5 px-2'>Crie registros fictícios de 1 a 1 milhão usuários (caso deseje criar quantidades maiores click em <span className='fw-bold'>ignorar limite</span> , assim podendo criar a quantidades ilimitadas ou até sua máquina travar ) </p>
+        <div className='col-lg-9 col-12'>
             <div>
                 <label htmlFor="" className='form-label fw-bold'>Insira a quantidade de registro:</label>
                 <input type="text" className="form-control" placeholder='quantidade de registros' value={qtdUsuarios} onChange={(e)=>{handleQtdUsuarios(e.target.value)}} disabled={disabled} /></div>
@@ -50,7 +50,7 @@ const GerarUsuarios = ({setListaUsuarios,usuarios}) => {
             </div>
             
         <div className='mt-3 d-flex gap-2 '>
-            <button onClick={handleGerarLista} className='btn btn-primary px-5'>Gerar usuários</button>
+            <button onClick={handleGerarLista} className='px-lg-5 btn btn-primary px-3'>Gerar usuários</button>
             <ButtonDownload dados={usuarios}></ButtonDownload>
 
         </div>

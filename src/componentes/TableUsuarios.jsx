@@ -21,7 +21,7 @@ const TableUsuarios = ({ dados }) => {
 
     return (
         <>
-            <table className='table overflow-scroll table-striped table-bordered'>
+            <table className='table w-100 overflow-scroll table-striped table-bordered'>
                 <thead>
                     <tr className='text-uppercase'>
                         <th>#</th>
@@ -39,7 +39,7 @@ const TableUsuarios = ({ dados }) => {
                 <tbody>
                     {(dados.length == 0) ? (
                         <tr>
-                            <td colSpan='8'>
+                            <td colSpan='9'>
                                 Clique em <span className='fw-bold'>gerar usuários</span>
                             </td>
                         </tr>
