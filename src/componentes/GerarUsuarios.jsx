@@ -2,7 +2,10 @@ import gerarUsuarios from '../script/faker'
 import ButtonDownload from './ButtonDownload'
 import { useState } from 'react'
 const GerarUsuarios = ({setListaUsuarios,usuarios}) => {
-    const[qtdUsuarios,setUsuarios] = useState(100)
+    const[setParam,setParams] = useState({
+        qtdUsuarios:100,
+        geracaoId:'auto-incremento'
+    })
     const[ignoreLimit,setIgnore] = useState(false)
     const[mensagemErro,setMensagemError] = useState(false)
     const[disabled,setDisabled] = useState(false)
@@ -15,12 +18,20 @@ const GerarUsuarios = ({setListaUsuarios,usuarios}) => {
             setIgnore(true)
     }
 
+    function handleBtnId(value){
+
+        setParam(prev=>({
+            ...prev,
+            geracaoId:value
+        }))
+    }
+
     function handleGerarLista(){
-        if(qtdUsuarios <= userMin ) return alert('insira um valor maior que o valor minimo')
+        if(setParam.qtdUsuarios <= userMin ) return alert('insira um valor maior que o valor minimo')
         if(!ignoreLimit){
-            if(qtdUsuarios > userMax) return alert('insira um valor menos que o limite')
+            if(setParam.qtdUsuarios > userMax) return alert('insira um valor menos que o limite')
         }
-        const user = gerarUsuarios(qtdUsuarios)
+        const user = gerarUsuarios(setparam)
         setListaUsuarios(user)
     }
 
@@ -41,12 +52,23 @@ const GerarUsuarios = ({setListaUsuarios,usuarios}) => {
         <div className='col-lg-9 col-12'>
             <div>
                 <label htmlFor="" className='form-label fw-bold'>Insira a quantidade de registro:</label>
-                <input type="text" className="form-control" placeholder='quantidade de registros' value={qtdUsuarios} onChange={(e)=>{handleQtdUsuarios(e.target.value)}} disabled={disabled} /></div>
+                <input type="text" className="form-control" placeholder='quantidade de registros' value={setParam.qtdUsuarios} onChange={(e)=>{handleQtdUsuarios(e.target.value)}} disabled={disabled} /></div>
                 { mensagemErro ? (<p className='small text-danger'>Insira limites válidos...</p>):''}
-                <div className='mt-2 w-100 d-flex gap-1 justify-items-start'>
-                    <input type="checkbox" className='form-check' name="ignoreLimit" onChange={(e)=>{handleCheckBox(e.target.checked) }} id="igonoreLimit" />
-                    <label className='form-check-label' htmlFor="ignoreLimit">ignorar limites</label>
+                <div className='mt-2 w-100 d-flex gap-3 border-3 align-items-start'>
+                    <label className='d-flex align-items-center gap-1' htmlFor="ignoreLimit"><input type="checkbox" className='form-check' name="ignoreLimit" onChange={(e)=>{handleCheckBox(e.target.checked) }} id="igonoreLimit" />
+                    ignorar limites</label>
+                    <div className=' gap-1 justify-items-start'>
+                        <p className='m-0 fw-bold '>Geração de Ids</p>
+                        <label className='d-flex align-items-center gap-1' htmlFor="">
+                        <input type="radio" className='form-check' name="geracaoId" value='auto-incremento' onChange={(e)=>{handleCheckBox(e.target.checked) }} id="geracaoId" />Auto-incremento</label>
+                    
+                    
+                        <label className='d-flex align-items-center gap-1' htmlFor="">
+                        <input type="radio" className='form-check' name="geracaoId" value='aleatorio' onChange={(e)=>{handleCheckBox(e.target.checked) }} id="geracaoId" />Aleatórios</label>
+                    
                  </div>
+                 </div>
+                
             </div>
             
         <div className='mt-3 d-flex gap-2 '>
