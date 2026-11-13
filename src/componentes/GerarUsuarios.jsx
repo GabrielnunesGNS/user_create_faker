@@ -1,4 +1,4 @@
-import gerarUsuarios from '../script/faker'
+import {gerarUsuariosAleatoriosUnicos,gerarUsuariosSequenciais} from '../script/faker'
 import ButtonDownload from './ButtonDownload'
 import { useState } from 'react'
 const GerarUsuarios = ({setListaUsuarios,usuarios}) => {
@@ -13,14 +13,15 @@ const GerarUsuarios = ({setListaUsuarios,usuarios}) => {
     const userMin = 1
     const userMax = 1000000
 
+    
     function handleCheckBox(value){
         if(!value) return
             setIgnore(true)
     }
 
     function handleBtnId(value){
-
-        setParam(prev=>({
+        
+        setParams(prev=>({
             ...prev,
             geracaoId:value
         }))
@@ -31,7 +32,11 @@ const GerarUsuarios = ({setListaUsuarios,usuarios}) => {
         if(!ignoreLimit){
             if(setParam.qtdUsuarios > userMax) return alert('insira um valor menos que o limite')
         }
-        const user = gerarUsuarios(setparam)
+
+        let user
+        if(setParam.geracaoId.toLowerCase() == 'aleatorio') user = gerarUsuariosAleatoriosUnicos(setParam.qtdUsuarios)
+        if(setParam.geracaoId.toLowerCase() == 'auto-incremento') user = gerarUsuariosSequenciais(setParam.qtdUsuarios)
+
         setListaUsuarios(user)
     }
 
@@ -39,15 +44,18 @@ const GerarUsuarios = ({setListaUsuarios,usuarios}) => {
 
     function handleQtdUsuarios(value){
         let valor  = Number(value)
-        if(!Number.isFinite(valor) || valor  < 1 || value == '' ) setUsuarios(0)
-        setUsuarios(valor)
+        if(!Number.isFinite(valor) || valor  < 1 || value == '' ) value = 0
+        setParams(prev =>({
+            ...prev,
+            qtdUsuarios:Number(value)
+        }))
        
     }
 
   
 
   return (
-    <div className='mt-5 d-flex justify-content-center flex-column align-items-center w-100'>
+    <div className='mt-2 mt-lg-5 d-flex justify-content-center flex-column align-items-center w-100'>
         <p className='px-lg-5 px-2'>Crie registros fictícios de 1 a 1 milhão usuários (caso deseje criar quantidades maiores click em <span className='fw-bold'>ignorar limite</span> , assim podendo criar a quantidades ilimitadas ou até sua máquina travar ) </p>
         <div className='col-lg-9 col-12'>
             <div>
@@ -60,11 +68,9 @@ const GerarUsuarios = ({setListaUsuarios,usuarios}) => {
                     <div className=' gap-1 justify-items-start'>
                         <p className='m-0 fw-bold '>Geração de Ids</p>
                         <label className='d-flex align-items-center gap-1' htmlFor="">
-                        <input type="radio" className='form-check' name="geracaoId" value='auto-incremento' onChange={(e)=>{handleCheckBox(e.target.checked) }} id="geracaoId" />Auto-incremento</label>
-                    
-                    
+                        <input type="radio" className='form-check' name="geracaoId" defaultChecked value='auto-incremento' onClick={(e)=>{handleBtnId(e.target.value) }} id="geracaoId" />Auto-incremento</label>
                         <label className='d-flex align-items-center gap-1' htmlFor="">
-                        <input type="radio" className='form-check' name="geracaoId" value='aleatorio' onChange={(e)=>{handleCheckBox(e.target.checked) }} id="geracaoId" />Aleatórios</label>
+                        <input type="radio" className='form-check' name="geracaoId" value='aleatorio' onClick={(e)=>{handleBtnId(e.target.value) }} id="geracaoId" />Aleatórios</label>
                     
                  </div>
                  </div>
